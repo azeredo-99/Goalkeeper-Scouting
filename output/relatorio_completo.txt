@@ -1,0 +1,84 @@
+============================================================
+TABELA COMPLETA DE MÉTRICAS — TODOS OS GUARDA-REDES
+============================================================
+
+                                  minutes  sweeper_actions  avg_distance_from_goal  max_distance_from_goal  shots_faced  shots_saved  goals_conceded  save_pct  total_passes  pass_success_pct  avg_pass_length  long_ball_pct  sweeper_actions_p90  shots_faced_p90
+player                                                                                                                                                                                                                                                              
+Damián Emiliano Martínez              739              4.0                    13.5                    16.2           33          6.0             5.0      18.2           186              66.1             41.9           44.1                  0.5              4.0
+Dominik Livaković                     725              2.0                    10.2                    16.5           53         24.0             6.0      45.3           228              82.9             31.8           31.6                  0.2              6.6
+Hugo Lloris                           613              4.0                    16.1                    24.6           51         16.0             4.0      31.4           182              61.0             47.2           59.3                  0.6              7.5
+Yassine Bounou                        603              4.0                    16.7                    22.5           50          7.0             4.0      14.0           210              74.3             39.3           42.9                  0.6              7.5
+Andries Noppert                       515              6.0                    17.7                    24.1           46         18.0             3.0      39.1           191              82.2             32.6           31.4                  1.0              8.0
+Diogo Meireles Costa                  488              4.0                    21.5                    33.0           33         12.0             6.0      36.4           159              69.8             37.3           37.7                  0.7              6.1
+Jordan Pickford                       485              1.0                    24.5                    24.5           32          6.0             3.0      18.8           161              78.3             36.2           36.0                  0.2              5.9
+Unai Simón Mendibil                   415              3.0                    30.9                    42.6           13          6.0             3.0      46.2           158              93.7             23.4            8.2                  0.7              2.8
+Shūichi Gonda                         415              1.0                    18.9                    18.9           41         15.0             3.0      36.6           113              61.1             42.9           50.4                  0.2              8.9
+Alisson Ramsés Becker                 410              1.0                    31.7                    31.7           20          5.0             2.0      25.0            94              85.1             24.4           16.0                  0.2              4.4
+Wojciech Szczęsny                     389              3.0                    14.0                    20.0           38         23.0             5.0      60.5           146              60.3             49.5           67.8                  0.7              8.8
+Matthew Charles Turner                389              5.0                    18.0                    36.4           17          9.0             3.0      52.9           126              77.8             35.4           33.3                  1.2              3.9
+Mathew Ryan                           386              6.0                    19.1                    36.5           46         13.0             6.0      28.3           163              68.7             44.2           57.7                  1.4             10.7
+Seung-Gyu Kim                         386              3.0                    12.0                    15.4           28         12.0             7.0      42.9           128              73.4             37.2           34.4                  0.7              6.5
+Edouard Mendy                         386              6.0                    19.6                    28.1           23          7.0             7.0      30.4           117              76.9             37.5           43.6                  1.4              5.4
+Lawrence Ati-Zigi                     300              2.0                    19.6                    23.1           27         10.0             6.0      37.0            76              67.1             41.2           47.4                  0.6              8.1
+Mohammed Khalil Al Owais              297              7.0                    25.2                    37.8           31         14.0             4.0      45.2            98              54.1             49.9           65.3                  2.1              9.4
+Sergio Rochet Álvarez                 297              2.0                    15.9                    18.1           24          4.0             1.0      16.7            76              69.7             37.6           43.4                  0.6              7.3
+Aymen Dahmen                          295              2.0                    13.4                    16.2           20          9.0             1.0      45.0            77              62.3             45.4           62.3                  0.6              6.1
+Keylor Navas Gamboa                   294              6.0                    13.3                    23.6           39         11.0            10.0      28.2           101              54.5             50.1           59.4                  1.8             11.9
+Manuel Neuer                          293              4.0                    25.2                    43.1           14          7.0             4.0      50.0           123              90.2             29.3           20.3                  1.2              4.3
+Vanja Milinković Savić                293              3.0                    21.3                    24.7           26         16.0             8.0      61.5           127              72.4             40.7           40.2                  0.9              8.0
+Kasper Schmeichel                     290              3.0                    15.8                    26.7           31          8.0             3.0      25.8            87              82.8             33.2           27.6                  0.9              9.6
+Francisco Guillermo Ochoa Magaña      290              1.0                    27.9                    27.9           15          2.0             3.0      13.3           108              83.3             32.7           27.8                  0.3              4.7
+Hernán Ismael Galíndez                287              2.0                    14.2                    14.6           16          1.0             2.0       6.2            77              57.1             47.6           58.4                  0.6              5.0
+Yann Sommer                           285              2.0                    13.2                    18.2           17         12.0             7.0      70.6           117              91.5             24.7           17.9                  0.6              5.4
+Milan Borjan                          284              4.0                    14.4                    18.2           14          8.0             7.0      57.1            96              78.1             34.8           33.3                  1.3              4.4
+Thibaut Courtois                      283              1.0                    27.9                    27.9           32          8.0             2.0      25.0           122              89.3             30.3           23.0                  0.3             10.2
+Seyed Hossein Hosseini                205              1.0                    17.7                    17.7           11          4.0             6.0      36.4            48              45.8             49.8           70.8                  0.4              4.8
+Wayne Hennessey                       202              1.0                    17.3                    17.3           15          4.0             1.0      26.7            66              78.8             38.1           42.4                  0.4              6.7
+Alireza Safar Beiranvand              202              NaN                     NaN                     NaN            8          4.0             1.0      50.0            31              67.7             45.1           51.6                  NaN              3.6
+Daniel Ward                           196              NaN                     NaN                     NaN           16          4.0             5.0      25.0            39              61.5             49.7           69.2                  NaN              7.3
+Devis Rogers Epassy Mboka             196              1.0                    12.7                    12.7           23         10.0             3.0      43.5            84              66.7             48.4           63.1                  0.5             10.6
+Meshaal Aissa Barsham                 192              1.0                    19.4                    19.4           17          3.0             5.0      17.6            63              69.8             30.7           39.7                  0.5              8.0
+
+
+============================================================
+GUARDA-REDES PARECIDOS COM MANUEL NEUER
+============================================================
+
+                        Similaridade (%)  Minutos jogados
+Unai Simón Mendibil                 94.5              415
+Andries Noppert                     92.1              515
+Matthew Charles Turner              87.5              389
+Yann Sommer                         82.3              285
+Alisson Ramsés Becker               80.3              410
+
+------------------------------------------------------------
+Leitura de scouting:
+
+1. Unai Simón Mendibil
+   Similaridade: 94.5%
+   Minutos jogados na amostra: 415
+   Unai Simón Mendibil é muito parecido com Manuel Neuer em eficácia de defesas, mas fica abaixo da média em proatividade a sair da baliza.
+
+2. Andries Noppert
+   Similaridade: 92.1%
+   Minutos jogados na amostra: 515
+   Andries Noppert é muito parecido com Manuel Neuer em proatividade a sair da baliza, mas fica abaixo da média em distância a que atua da baliza.
+
+3. Matthew Charles Turner
+   Similaridade: 87.5%
+   Minutos jogados na amostra: 389
+   Matthew Charles Turner é muito parecido com Manuel Neuer em proatividade a sair da baliza, mas fica abaixo da média em distância a que atua da baliza.
+
+4. Yann Sommer
+   Similaridade: 82.3%
+   Minutos jogados na amostra: 285
+   Yann Sommer é muito parecido com Manuel Neuer em eficácia de passe, mas fica abaixo da média em distância a que atua da baliza.
+
+5. Alisson Ramsés Becker
+   Similaridade: 80.3%
+   Minutos jogados na amostra: 410
+   Alisson Ramsés Becker é muito parecido com Manuel Neuer em tendência para bola longa, mas fica abaixo da média em proatividade a sair da baliza.
+
+============================================================
+Nota: a similaridade compara o ESTILO de jogo (proatividade a sair da
+baliza, distribuição, eficácia de defesas), não a qualidade absoluta.

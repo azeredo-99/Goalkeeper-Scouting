@@ -1,0 +1,41 @@
+============================================================
+RELATÓRIO DE SCOUTING — GUARDA-REDES
+============================================================
+
+▸ Melhor eficácia de defesas
+   1. Yann Sommer                    70.6 % remates defendidos  (285 min jogados)
+   2. Vanja Milinković Savić         61.5 % remates defendidos  (293 min jogados)
+   3. Wojciech Szczęsny              60.5 % remates defendidos  (389 min jogados)
+   4. Milan Borjan                   57.1 % remates defendidos  (284 min jogados)
+   5. Matthew Charles Turner         52.9 % remates defendidos  (389 min jogados)
+
+▸ Mais proativos a sair da baliza (estilo 'líbero')
+   1. Mohammed Khalil Al Owais       2.1 saídas/jogo  (297 min jogados)
+   2. Keylor Navas Gamboa            1.8 saídas/jogo  (294 min jogados)
+   3. Mathew Ryan                    1.4 saídas/jogo  (386 min jogados)
+   4. Edouard Mendy                  1.4 saídas/jogo  (386 min jogados)
+   5. Milan Borjan                   1.3 saídas/jogo  (284 min jogados)
+
+▸ Atuam mais longe da própria baliza
+   1. Alisson Ramsés Becker          31.7 metros  (410 min jogados)
+   2. Unai Simón Mendibil            30.9 metros  (415 min jogados)
+   3. Thibaut Courtois               27.9 metros  (283 min jogados)
+   4. Francisco Guillermo Ochoa Magaña 27.9 metros  (290 min jogados)
+   5. Mohammed Khalil Al Owais       25.2 metros  (297 min jogados)
+
+▸ Melhor eficácia de passe
+   1. Unai Simón Mendibil            93.7 % passes certos  (415 min jogados)
+   2. Yann Sommer                    91.5 % passes certos  (285 min jogados)
+   3. Manuel Neuer                   90.2 % passes certos  (293 min jogados)
+   4. Thibaut Courtois               89.3 % passes certos  (283 min jogados)
+   5. Alisson Ramsés Becker          85.1 % passes certos  (410 min jogados)
+
+▸ Mais dependentes de bola longa
+   1. Seyed Hossein Hosseini         70.8 % bola longa  (205 min jogados)
+   2. Daniel Ward                    69.2 % bola longa  (196 min jogados)
+   3. Wojciech Szczęsny              67.8 % bola longa  (389 min jogados)
+   4. Mohammed Khalil Al Owais       65.3 % bola longa  (297 min jogados)
+   5. Devis Rogers Epassy Mboka      63.1 % bola longa  (196 min jogados)
+
+============================================================
+Nota: valores baseados na amostra analisada (ver 'minutes' para fiabilidade).
