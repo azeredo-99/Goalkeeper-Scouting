@@ -1,4 +1,3 @@
-Claro. O problema foi o bloco de código interno estar a ser interpretado pelo próprio Markdown. Vou enviar **TUDO dentro de um único bloco `.md`**, usando quatro crases por fora, para poderes copiar **do primeiro `#` até ao último `License`** sem nada ficar de fora.
 
 ````markdown
 # Goalkeeper Scouting 🧤⚽
