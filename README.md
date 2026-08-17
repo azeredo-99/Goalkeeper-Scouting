@@ -1,223 +1,135 @@
 # Goalkeeper Scouting 🧤⚽
 
-Plataforma de **data scouting especializada em guarda-redes**, criada para transformar
-dados de performance e mercado em informação útil para recrutamento.
+> A data-driven football scouting platform focused on goalkeeper analysis,
+> comparison and recruitment.
 
-🚧**Estado: Em desenvolvimento**
-
-O projeto combina:
-
-- dados de eventos da [StatsBomb Open Data](https://github.com/statsbomb/open-data);
-- dados de mercado de jogadores;
-- métricas específicas para guarda-redes;
-- matching entre diferentes fontes de dados;
-- análise de perfis;
-- comparação entre jogadores;
-- identificação de guarda-redes com estilos semelhantes.
-
-O objetivo não é apenas mostrar estatísticas. É construir uma ferramenta capaz de
-responder a perguntas reais de scouting, como:
-
-> "Quem apresenta um perfil semelhante ao meu guarda-redes atual, mas é mais jovem
-> e tem um valor de mercado inferior?"
+🚧 **Status: In Development**
 
 ---
 
-## 🎯 O problema
+## 🎯 About the Project
 
-Os clubes acumulam grandes quantidades de dados de performance, mas transformar
-esses dados em informação útil para recrutamento continua a exigir bastante trabalho
-manual.
+**Goalkeeper Scouting** is a personal data scouting project focused on
+evaluating and comparing goalkeepers using performance and market data.
 
-Este projeto procura automatizar parte desse processo, criando uma camada de análise
-específica para guarda-redes.
+The project aims to go beyond traditional statistics such as saves and goals
+conceded by analysing different aspects of a goalkeeper's profile, including:
 
-Em vez de olhar apenas para defesas e golos sofridos, o modelo procura capturar
-dimensões que caracterizam diferentes estilos de guarda-redes:
+- 🧤 **Shot Stopping**
+- ⚽ **Distribution**
+- 🧠 **Proactivity**
 
-- **Shot Stopping**
-- **Distribution**
-- **Proactivity / Sweeper-Keeper**
-
----
-
-## 🚀 O que a plataforma faz
-
-### 👤 Perfil individual
-
-Para cada guarda-redes, a plataforma combina informação de mercado e performance.
-
-#### Mercado
-
-- idade;
-- clube atual;
-- valor de mercado;
-- maior valor de mercado.
-
-#### Performance
-
-- minutos jogados;
-- eficácia de defesas;
-- eficácia de passe;
-- comprimento médio do passe;
-- percentagem de bola longa;
-- ações de Sweeper-Keeper por 90;
-- distância média à própria baliza.
+The platform allows users to define a scouting profile, search for similar
+goalkeepers and compare players according to their statistical profiles and
+market context.
 
 ---
 
-### ⚖️ Comparar guarda-redes
+## ✨ Features
 
-Permite comparar dois ou três guarda-redes lado a lado.
+### 🔎 Find Similar Goalkeepers
 
-A comparação inclui:
+Select a goalkeeper and search for players with statistically similar
+profiles.
 
-- contexto de mercado;
-- idade;
-- valor de mercado;
-- minutos;
-- shot stopping;
-- distribuição;
-- proatividade;
-- restantes métricas disponíveis.
+The similarity engine compares multiple performance dimensions and ranks
+potential candidates according to the selected scouting profile.
 
-A plataforma pode também gerar um **radar comparativo** para visualizar rapidamente
-as diferenças de perfil.
+![Find Similar Goalkeepers](docs/screenshots/find_similar.png)
 
 ---
 
-### 🔎 Encontrar semelhantes
+### ⚖️ Custom Scouting Profile
 
-O motor de similaridade procura guarda-redes com um perfil estatístico semelhante
-ao jogador escolhido.
-
-O utilizador pode controlar o perfil procurado através de pesos para:
+The scouting profile allows the user to define how important each dimension
+should be in the final analysis.
 
 - **Shot Stopping**
 - **Distribution**
 - **Proactivity**
 
-Também podem ser aplicados filtros de recrutamento:
+The weights can be adjusted depending on the requirements of a specific
+scouting context.
 
-- valor máximo de mercado;
-- idade máxima;
-- similaridade mínima;
-- minutos mínimos;
-- número de candidatos.
-
-Isto permite transformar a análise estatística numa pesquisa de recrutamento.
-
-Exemplo:
-
-> Encontrar guarda-redes semelhantes a Gianluigi Donnarumma, com pelo menos
-> 60% de similaridade, menos de €20M de valor de mercado, com idade máxima de
-> 28 anos e pelo menos 720 minutos analisados.
+![Scouting Profile](docs/screenshots/profile.png)
 
 ---
 
-## 📊 Métricas
+### 🎯 Similarity Results
 
-As principais métricas atualmente utilizadas incluem:
+After defining the desired profile and filters, the platform returns the
+goalkeepers that best match the selected criteria.
 
-| Métrica técnica | Significado |
-|---|---|
-| `sweeper_actions_p90` | Ações de Sweeper-Keeper por 90 minutos |
-| `avg_distance_from_goal` | Distância média à própria baliza |
-| `save_pct` | Percentagem de remates defendidos |
-| `shots_faced_p90` | Remates enfrentados por 90 minutos |
-| `pass_success_pct` | Percentagem de passes certos |
-| `avg_pass_length` | Comprimento médio do passe |
-| `long_ball_pct` | Percentagem de passes longos |
-| `minutes` | Minutos jogados |
+Users can filter candidates by:
 
-As métricas são normalizadas para permitir comparações entre jogadores com diferentes
-minutagens e perfis estatísticos.
+- Maximum market value
+- Maximum age
+- Minimum similarity
+- Minimum minutes played
+- Number of candidates
+
+The results also provide additional performance and market information for
+each goalkeeper.
+
+![Similarity Results](docs/screenshots/similar_results.png)
 
 ---
 
-## 🧠 Motor de similaridade
+### 📊 Player Comparison
 
-A similaridade é calculada sobre o **perfil de estilo de jogo**, e não sobre uma
-avaliação absoluta da qualidade do guarda-redes.
+The platform allows users to compare goalkeeper profiles using their
+performance metrics.
 
-O modelo considera seis características principais:
+![Player Comparison](docs/screenshots/compare.png)
 
-- ações de Sweeper-Keeper por 90;
-- distância média à baliza;
-- eficácia de defesas;
-- eficácia de passe;
-- comprimento médio do passe;
-- percentagem de bola longa.
+The comparison results are presented visually to make differences between
+players easier to identify.
 
-Estas características são agrupadas em três dimensões:
+![Comparison Results](docs/screenshots/compare_results.png)
+
+---
+
+## 🧤 Performance Model
+
+The project evaluates goalkeeper profiles across three main dimensions.
 
 ### Shot Stopping
-- eficácia de defesas.
+
+Measures related to a goalkeeper's effectiveness when dealing with shots and
+defensive situations.
 
 ### Distribution
-- eficácia de passe;
-- comprimento médio do passe;
-- percentagem de bola longa.
+
+Measures related to a goalkeeper's ability to contribute to build-up play and
+progress the ball.
 
 ### Proactivity
-- ações de Sweeper-Keeper;
-- distância média à baliza.
 
-O utilizador pode controlar o peso relativo destas dimensões.
+Measures related to actions outside the goal line and the goalkeeper's
+involvement in defensive space.
 
-> **Importante:** uma elevada similaridade significa que dois jogadores apresentam
-> características estatísticas semelhantes. Não significa automaticamente que tenham
-> a mesma qualidade ou valor desportivo.
+The importance of each dimension can be adjusted through the scouting profile.
 
 ---
 
-## 🗂️ Dados
+## 🧠 Similarity Engine
 
-### Performance
+The similarity engine is designed to identify goalkeepers with statistical
+profiles close to a selected reference player.
 
-A performance é baseada em eventos da **StatsBomb Open Data**.
-
-O projeto suporta uma base alargada de competições e épocas disponíveis no dataset,
-em vez de estar limitado a uma única competição.
-
-### Mercado
-
-Os dados de mercado incluem informação proveniente da base de jogadores utilizada
-pelo projeto, incluindo:
-
-- clube atual;
-- data de nascimento;
-- valor de mercado;
-- maior valor de mercado.
-
-A base é mantida localmente depois do primeiro carregamento, permitindo que a
-aplicação seja executada sem depender de um download a cada arranque.
-
----
-
-## 🔗 Matching entre fontes
-
-StatsBomb e a base de mercado não utilizam necessariamente exatamente o mesmo nome
-para um jogador.
-
-Por isso existe uma camada específica de **player matching**, capaz de ligar
-jogadores entre as duas fontes através de:
-
-1. correspondência exata;
-2. primeiro + último nome;
-3. correspondência por tokens;
-4. tratamento de nomes intermédios.
-
-Exemplo:
+The scouting workflow is:
 
 ```text
-StatsBomb
-Diogo Meireles Costa
-
-Mercado
-Diogo Costa
-
-→ mesmo jogador
----
-*Dados: [StatsBomb Open Data](https://github.com/statsbomb/open-data), disponíveis
-gratuitamente para fins de investigação e desenvolvimento de portfólio.*
+Select goalkeeper
+       ↓
+Define scouting profile
+       ↓
+Apply market & performance filters
+       ↓
+Analyse candidate profiles
+       ↓
+Calculate similarity
+       ↓
+Rank candidates
+       ↓
+Compare players
