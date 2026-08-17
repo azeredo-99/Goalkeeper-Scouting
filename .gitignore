@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *.pyo
+.pytest_cache/
 
 # Virtual environment
 .venv/
@@ -12,8 +13,11 @@ data/*.pkl
 data/*.csv.gz
 
 # Generated output
-output/_tmp_*
-output/*.csv
+output/*
+!output/.gitkeep
+
+# Streamlit
+.streamlit/secrets.toml
 
 # VS Code local settings
 .vscode/

@@ -1,103 +1,223 @@
-# Algoritmo de Perfilagem de Guarda-Redes ⚽🧤
+# Goalkeeper Scouting 🧤⚽
 
-Projeto de **data scouting** focado na posição de guarda-redes, construído com dados
-reais da [StatsBomb Open Data](https://github.com/statsbomb/open-data).
+Plataforma de **data scouting especializada em guarda-redes**, criada para transformar
+dados de performance e mercado em informação útil para recrutamento.
 
-As métricas escolhidas não são só "defesas e golos sofridos" — tentam capturar
-o que realmente distingue um guarda-redes moderno: **proatividade a sair da
-baliza (sweeper-keeper)**, **qualidade de distribuição** e **eficácia a defender remates**.
+🚧**Estado: Em desenvolvimento**
 
-## Porquê este projeto
+O projeto combina:
 
-A maioria dos clubes já tem scouts tradicionais que "veem" bem futebol. O que
-falta é gente que saiba transformar milhares de eventos em dados legíveis e
-comparáveis. Este projeto mostra exatamente isso: pega em dados brutos de
-eventos (passe a passe, ação a ação) e devolve uma tabela e dois gráficos que
-um Diretor Desportivo consegue interpretar em segundos.
+- dados de eventos da [StatsBomb Open Data](https://github.com/statsbomb/open-data);
+- dados de mercado de jogadores;
+- métricas específicas para guarda-redes;
+- matching entre diferentes fontes de dados;
+- análise de perfis;
+- comparação entre jogadores;
+- identificação de guarda-redes com estilos semelhantes.
 
-## O que o projeto faz
+O objetivo não é apenas mostrar estatísticas. É construir uma ferramenta capaz de
+responder a perguntas reais de scouting, como:
 
-1. **Carrega** eventos de jogos reais via `statsbombpy` (dados abertos do Mundial 2022).
-2. **Isola** todas as ações de guarda-redes: saídas da baliza (*Keeper Sweeper*),
-   defesas, golos sofridos, e a distribuição de bola (passes).
-3. **Calcula métricas por 90 minutos**, para comparar jogadores com minutagens diferentes:
-   - `sweeper_actions_p90` — nº de saídas da baliza por 90 min
-   - `avg_distance_from_goal` — a que distância da própria baliza o guarda-redes atua
-   - `save_pct` — eficácia de defesas
-   - `pass_success_pct` / `long_ball_pct` — perfil de construção de jogo
-4. **Visualiza**:
-   - Um **radar comparativo** entre vários guarda-redes (`output/radar_comparativo.png`)
-   - Um **mapa de campo** com as saídas da baliza de um jogador específico (`output/sweeper_map_*.png`)
+> "Quem apresenta um perfil semelhante ao meu guarda-redes atual, mas é mais jovem
+> e tem um valor de mercado inferior?"
 
-## Como correr
+---
 
-```bash
-python -m venv .venv
-source .venv/bin/activate      # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-python main.py
-```
+## 🎯 O problema
 
-A primeira vez que corres: demora ~3-5 min a descarregar os 64 jogos do Mundial 2022
-(depois fica em cache local em `data/events_full_wc2022.pkl` e as próximas execuções são instantâneas).
+Os clubes acumulam grandes quantidades de dados de performance, mas transformar
+esses dados em informação útil para recrutamento continua a exigir bastante trabalho
+manual.
 
-Os resultados aparecem em `output/`:
-- `scouting_table.csv` — métricas de todos os guarda-redes da competição
-- `radar_comparativo.png`
-- `sweeper_map_<jogador>.png`
-- `similar_to_<jogador>.csv` — resultado do algoritmo de similaridade
+Este projeto procura automatizar parte desse processo, criando uma camada de análise
+específica para guarda-redes.
 
-### Versão interativa (Streamlit)
+Em vez de olhar apenas para defesas e golos sofridos, o modelo procura capturar
+dimensões que caracterizam diferentes estilos de guarda-redes:
 
-```bash
-streamlit run streamlit_app.py
-```
+- **Shot Stopping**
+- **Distribution**
+- **Proactivity / Sweeper-Keeper**
 
-Abre uma app no browser com 3 separadores: perfil individual, comparação lado-a-lado,
-e "encontrar guarda-redes parecidos" — a mesma lógica do `main.py`, mas explorável sem tocar em código.
+---
 
-## Estrutura do código
+## 🚀 O que a plataforma faz
 
-```
-gk_scouting/
-├── data_loader.py        # ligação à StatsBomb + limpeza de coordenadas
-├── metrics.py             # cálculo das métricas de scouting (a lógica "de futebol")
-├── visuals.py              # radar + mapa de campo 
-├── similarity_engine.py    # "encontrar o novo X" — similaridade de cosseno entre perfis
-├── main.py                 # pipeline em linha de comandos, ponto de entrada
-├── streamlit_app.py        # versão interativa (dashboard no browser)
-└── output/                 # tabela + gráficos gerados
-```
+### 👤 Perfil individual
 
-## Exemplo de resultado (Mundial 2022 completo — 64 jogos, 34 guarda-redes com ≥180 min)
+Para cada guarda-redes, a plataforma combina informação de mercado e performance.
 
-|   Guarda-redes    | Minutos | Ações Sweeper/90 | Distância média à baliza | Eficácia defesas | Eficácia passe |
-|-------------------|---------|------------------|--------------------------|------------------|----------------|
-| Emiliano Martínez |   739   |       0.5        |         13.5m            |       18.2%      |     66.1%      |
-| Dominik Livaković |   725   |       0.2        |         10.2m            |		45.3%      |     82.9%	    |
-| Manuel Neuer      |   293   |       1.2        |         25.2m            |		50.0%	   |     90.2%      |
-| Alisson Becker    |   410   |       0.2        |         31.7m            |		25.0%      |     85.1%      |
+#### Mercado
 
-### Exemplo do algoritmo de similaridade: "quem é parecido com o Neuer?"
+- idade;
+- clube atual;
+- valor de mercado;
+- maior valor de mercado.
 
-|    Candidato    | Similaridade |
-|-----------------|--------------|
-| Unai Simón      |    94.5%     |
-| Andries Noppert |    92.1%     | 
-| Matthew Turner  |    87.5%     |
-| Yann Sommer     |    82.3%     |
+#### Performance
 
-Isto confirma o que o olho treinado já esperaria: Neuer, Unai Simón e Noppert
-são todos guarda-redes "líbero", muito proativos fora da área — o algoritmo
-encontra esse padrão só a partir dos números, sem saber nada de futebol a priori.
+- minutos jogados;
+- eficácia de defesas;
+- eficácia de passe;
+- comprimento médio do passe;
+- percentagem de bola longa;
+- ações de Sweeper-Keeper por 90;
+- distância média à própria baliza.
 
-## Próximos passos possíveis
+---
 
-- Cruzar com dados de mercado (idade, valor, contrato) para responder
-  "quem é parecido E mais barato/mais jovem"
-- Juntar mais competições/épocas (ex: ligas domésticas) para aumentar a amostra
-- Adicionar zonas de distribuição (heatmap de para onde o guarda-redes lança a bola)
+### ⚖️ Comparar guarda-redes
 
+Permite comparar dois ou três guarda-redes lado a lado.
+
+A comparação inclui:
+
+- contexto de mercado;
+- idade;
+- valor de mercado;
+- minutos;
+- shot stopping;
+- distribuição;
+- proatividade;
+- restantes métricas disponíveis.
+
+A plataforma pode também gerar um **radar comparativo** para visualizar rapidamente
+as diferenças de perfil.
+
+---
+
+### 🔎 Encontrar semelhantes
+
+O motor de similaridade procura guarda-redes com um perfil estatístico semelhante
+ao jogador escolhido.
+
+O utilizador pode controlar o perfil procurado através de pesos para:
+
+- **Shot Stopping**
+- **Distribution**
+- **Proactivity**
+
+Também podem ser aplicados filtros de recrutamento:
+
+- valor máximo de mercado;
+- idade máxima;
+- similaridade mínima;
+- minutos mínimos;
+- número de candidatos.
+
+Isto permite transformar a análise estatística numa pesquisa de recrutamento.
+
+Exemplo:
+
+> Encontrar guarda-redes semelhantes a Gianluigi Donnarumma, com pelo menos
+> 60% de similaridade, menos de €20M de valor de mercado, com idade máxima de
+> 28 anos e pelo menos 720 minutos analisados.
+
+---
+
+## 📊 Métricas
+
+As principais métricas atualmente utilizadas incluem:
+
+| Métrica técnica | Significado |
+|---|---|
+| `sweeper_actions_p90` | Ações de Sweeper-Keeper por 90 minutos |
+| `avg_distance_from_goal` | Distância média à própria baliza |
+| `save_pct` | Percentagem de remates defendidos |
+| `shots_faced_p90` | Remates enfrentados por 90 minutos |
+| `pass_success_pct` | Percentagem de passes certos |
+| `avg_pass_length` | Comprimento médio do passe |
+| `long_ball_pct` | Percentagem de passes longos |
+| `minutes` | Minutos jogados |
+
+As métricas são normalizadas para permitir comparações entre jogadores com diferentes
+minutagens e perfis estatísticos.
+
+---
+
+## 🧠 Motor de similaridade
+
+A similaridade é calculada sobre o **perfil de estilo de jogo**, e não sobre uma
+avaliação absoluta da qualidade do guarda-redes.
+
+O modelo considera seis características principais:
+
+- ações de Sweeper-Keeper por 90;
+- distância média à baliza;
+- eficácia de defesas;
+- eficácia de passe;
+- comprimento médio do passe;
+- percentagem de bola longa.
+
+Estas características são agrupadas em três dimensões:
+
+### Shot Stopping
+- eficácia de defesas.
+
+### Distribution
+- eficácia de passe;
+- comprimento médio do passe;
+- percentagem de bola longa.
+
+### Proactivity
+- ações de Sweeper-Keeper;
+- distância média à baliza.
+
+O utilizador pode controlar o peso relativo destas dimensões.
+
+> **Importante:** uma elevada similaridade significa que dois jogadores apresentam
+> características estatísticas semelhantes. Não significa automaticamente que tenham
+> a mesma qualidade ou valor desportivo.
+
+---
+
+## 🗂️ Dados
+
+### Performance
+
+A performance é baseada em eventos da **StatsBomb Open Data**.
+
+O projeto suporta uma base alargada de competições e épocas disponíveis no dataset,
+em vez de estar limitado a uma única competição.
+
+### Mercado
+
+Os dados de mercado incluem informação proveniente da base de jogadores utilizada
+pelo projeto, incluindo:
+
+- clube atual;
+- data de nascimento;
+- valor de mercado;
+- maior valor de mercado.
+
+A base é mantida localmente depois do primeiro carregamento, permitindo que a
+aplicação seja executada sem depender de um download a cada arranque.
+
+---
+
+## 🔗 Matching entre fontes
+
+StatsBomb e a base de mercado não utilizam necessariamente exatamente o mesmo nome
+para um jogador.
+
+Por isso existe uma camada específica de **player matching**, capaz de ligar
+jogadores entre as duas fontes através de:
+
+1. correspondência exata;
+2. primeiro + último nome;
+3. correspondência por tokens;
+4. tratamento de nomes intermédios.
+
+Exemplo:
+
+```text
+StatsBomb
+Diogo Meireles Costa
+
+Mercado
+Diogo Costa
+
+→ mesmo jogador
 ---
 *Dados: [StatsBomb Open Data](https://github.com/statsbomb/open-data), disponíveis
 gratuitamente para fins de investigação e desenvolvimento de portfólio.*
