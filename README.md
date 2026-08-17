@@ -3,6 +3,8 @@
 Plataforma de **data scouting especializada em guarda-redes**, criada para transformar
 dados de performance e mercado em informação útil para recrutamento.
 
+🚧**Estado: Em desenvolvimento**
+
 O projeto combina:
 
 - dados de eventos da [StatsBomb Open Data](https://github.com/statsbomb/open-data);
