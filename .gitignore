@@ -1,1 +1,23 @@
-.vs/
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+.venv/
+venv/
+
+# Data files
+data/*.pkl
+data/*.csv.gz
+
+# Generated output
+output/_tmp_*
+output/*.csv
+
+# VS Code local settings
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
