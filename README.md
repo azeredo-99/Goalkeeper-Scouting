@@ -95,9 +95,6 @@ O utilizador pode controlar o perfil procurado através de pesos para:
 - **Distribution**
 - **Proactivity**
 
-Os pesos funcionam como um orçamento de **100%**, impedindo que a combinação das
-dimensões ultrapasse esse valor.
-
 Também podem ser aplicados filtros de recrutamento:
 
 - valor máximo de mercado;
