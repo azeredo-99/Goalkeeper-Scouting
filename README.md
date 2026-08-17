@@ -1,5 +1,5 @@
 
-````markdown
+
 # Goalkeeper Scouting 🧤⚽
 
 > A data-driven football scouting platform focused on goalkeeper analysis, comparison and recruitment.
@@ -353,4 +353,3 @@ Computer Systems Engineering graduate interested in software development, data a
 This project is intended for educational and portfolio purposes.
 
 Football data is provided by the respective data sources and is subject to their own terms and conditions.
-````
