@@ -13,24 +13,29 @@ A lógica de dados/performance é mantida; em desenvolvimento:
 - legibilidade.
 """
 
+import html
 import os
 import unicodedata
 
 import pandas as pd
 import streamlit as st
 
-from data_loader import build_gk_events, build_gk_passes
-from metrics import build_scouting_table
-from market_data import get_goalkeepers
-from player_matching import (
+import _bootstrap  # noqa: F401  (coloca src/ no sys.path)
+
+from gk_scouting.data_loader import build_gk_events, build_gk_passes
+from gk_scouting.metrics import build_scouting_table
+from gk_scouting.market_data import get_goalkeepers
+from gk_scouting.player_matching import (
     create_name_index,
     match_players,
 )
-from visuals import plot_radar, plot_sweeper_map
-from similarity_engine import (
+from gk_scouting.visuals import plot_radar, plot_sweeper_map
+from gk_scouting.similarity_engine import (
     STYLE_FEATURES,
+    default_min_minutes,
     find_similar_goalkeepers,
     explain_similarity,
+    normalise_dimension_weights,
 )
 
 
@@ -241,6 +246,22 @@ def normalize_search_text(text):
         for char in text
         if not unicodedata.combining(char)
     )
+
+
+def esc(value):
+    """
+    Escapa um valor antes de o interpolar em HTML.
+
+    Nomes de jogadores e de clubes vem de um CSV externo que nao
+    controlamos; sem escaping, qualquer marcacao nesses campos seria
+    executada no browser (o Streamlit nao escapa dentro de
+    `unsafe_allow_html=True`).
+    """
+
+    if value is None or pd.isna(value):
+        return "N/A"
+
+    return html.escape(str(value))
 
 
 def format_market_value(value):
@@ -456,15 +477,15 @@ def render_player_card(
 
     with left:
         st.markdown(
-            f"<div class='gk-result-name'>🧤 {name}</div>"
-            f"<div class='gk-result-meta'>🏟️ {club}</div>",
+            f"<div class='gk-result-name'>🧤 {esc(name)}</div>"
+            f"<div class='gk-result-meta'>🏟️ {esc(club)}</div>",
             unsafe_allow_html=True,
         )
 
     with middle:
         st.markdown(
             f"<div class='gk-kpi-label'>Valor de mercado</div>"
-            f"<div class='gk-kpi-value'>{value}</div>",
+            f"<div class='gk-kpi-value'>{esc(value)}</div>",
             unsafe_allow_html=True,
         )
 
@@ -472,7 +493,7 @@ def render_player_card(
         st.markdown(
             f"<div class='gk-kpi-label'>Idade</div>"
             f"<div class='gk-kpi-value'>"
-            f"{age if age is not None else 'N/A'}"
+            f"{esc(age)}"
             f"</div>",
             unsafe_allow_html=True,
         )
@@ -482,8 +503,16 @@ def render_player_card(
 # LOAD DATA
 # =========================================================
 
-@st.cache_resource
+@st.cache_data(show_spinner="A carregar dados de performance...")
 def load_data():
+    """
+    Constroi a tabela de scouting e a base de mercado.
+
+    Os eventos brutos (centenas de MB) sao apenas um passo intermedio:
+    servem para construir `table` e nao voltam a ser usados pela aplicacao.
+    Por isso NAO sao devolvidos nem mantidos em cache -- se o fossem,
+    ficariam retidos em memoria durante todo o ciclo de vida do processo.
+    """
 
     extended_path = "data/events_extended.pkl"
     fallback_path = "data/events_full_wc2022.pkl"
@@ -494,9 +523,6 @@ def load_data():
         events_path = fallback_path
     else:
         return (
-            pd.DataFrame(),
-            pd.DataFrame(),
-            pd.DataFrame(),
             pd.DataFrame(),
             pd.DataFrame(),
         )
@@ -514,6 +540,10 @@ def load_data():
         gk_passes,
     )
 
+    # Libertar explicitamente os eventos brutos assim que a tabela esta
+    # construida: nada na aplicacao os consome a partir daqui.
+    del events, gk_events, gk_passes
+
     if "minutes" in table.columns:
         table = table[
             table["minutes"] >= 180
@@ -524,18 +554,12 @@ def load_data():
     market_df = prepare_market_df(market_df)
 
     return (
-        events,
-        gk_events,
-        gk_passes,
         table,
         market_df,
     )
 
 
 (
-    events,
-    gk_events,
-    gk_passes,
     table,
     market_df,
 ) = load_data()
@@ -548,15 +572,34 @@ if market_df.empty:
     st.stop()
 
 
+# Limiar de minutos sugerido, derivado da amostra realmente carregada.
+# Um valor fixo nao serve: o percentil 25 e 286 minutos no Mundial 2022 e
+# 190 no dataset multi-competicao.
+suggested_min_minutes = default_min_minutes(
+    table["minutes"]
+    if "minutes" in table.columns
+    else []
+)
+
+
 # =========================================================
 # MATCH MAP
 # =========================================================
 
-@st.cache_resource
+@st.cache_data(show_spinner=False)
 def build_performance_market_map(
     performance_names,
-    market_df,
+    _market_df,
 ):
+    """
+    `_market_df` leva prefixo `_` de proposito: sinaliza ao Streamlit que
+    nao deve tentar gerar hash do DataFrame a cada rerun. E derivado de
+    forma deterministica de `load_data()`, por isso `performance_names`
+    e suficiente como chave de cache.
+    """
+
+    market_df = _market_df
+
     names = list(performance_names)
 
     if not names or market_df.empty:
@@ -822,8 +865,8 @@ if page == "👤 Perfil":
         st.markdown(
             f"""
             <div class="gk-hero">
-                <div class="gk-hero-title">🧤 {name}</div>
-                <div class="gk-hero-subtitle">🏟️ {club}</div>
+                <div class="gk-hero-title">🧤 {esc(name)}</div>
+                <div class="gk-hero-subtitle">🏟️ {esc(club)}</div>
             </div>
             """,
             unsafe_allow_html=True,
@@ -1260,12 +1303,12 @@ else:
                     f"""
                     <div class="gk-result">
                         <div class="gk-result-name">
-                            🎯 {target}
+                            🎯 {esc(target)}
                         </div>
                         <div class="gk-result-meta">
-                            🏟️ {club} ·
-                            💰 {format_market_value(target_market.get("market_value_in_eur"))} ·
-                            🎂 {calculate_age(target_market.get("date_of_birth")) or "N/A"}
+                            🏟️ {esc(club)} ·
+                            💰 {esc(format_market_value(target_market.get("market_value_in_eur")))} ·
+                            🎂 {esc(calculate_age(target_market.get("date_of_birth")))}
                         </div>
                     </div>
                     """,
@@ -1317,21 +1360,30 @@ else:
                 + w_proactivity
             )
 
-            if total > 100:
+            # Os pesos sao sempre normalizados pela soma, por isso o que
+            # conta e a proporcao entre dimensoes. Em vez de fingir que a
+            # soma tem de dar 100, mostramos a proporcao efetivamente usada.
+            if total <= 0:
 
-                st.error(
-                    f"Os pesos somam {total}%. "
-                    "Reduz os valores até ao máximo de 100%."
+                st.warning(
+                    "Define pelo menos uma dimensão com peso maior que zero."
                 )
 
             else:
 
-                st.markdown(
-                    f"<span class='gk-badge'>"
-                    f"Peso total: {total}% · "
-                    f"Disponível: {100-total}%"
-                    f"</span>",
-                    unsafe_allow_html=True,
+                effective = normalise_dimension_weights(
+                    {
+                        "Shot Stopping": w_shot,
+                        "Distribution": w_distribution,
+                        "Proactivity": w_proactivity,
+                    }
+                )
+
+                st.caption(
+                    "Peso efetivamente aplicado: "
+                    f"🥅 Shot Stopping {effective['Shot Stopping']:.0%} · "
+                    f"⚽ Distribution {effective['Distribution']:.0%} · "
+                    f"🧤 Proactivity {effective['Proactivity']:.0%}"
                 )
 
             st.divider()
@@ -1379,8 +1431,12 @@ else:
                     "⏱️ Minutos mínimos",
                     min_value=90,
                     max_value=5000,
-                    value=720,
+                    value=suggested_min_minutes,
                     step=90,
+                    help=(
+                        "Sugerido a partir da amostra carregada "
+                        "(percentil 25, arredondado a jogos completos)."
+                    ),
                     key="similar_minutes",
                 )
 
@@ -1401,10 +1457,7 @@ else:
             run_similarity = st.button(
                 "🔎 Procurar semelhantes",
                 type="primary",
-                disabled=(
-                    total == 0
-                    or total > 100
-                ),
+                disabled=(total <= 0),
                 key="run_similarity",
             )
 
